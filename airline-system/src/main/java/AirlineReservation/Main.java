@@ -37,6 +37,11 @@ public class Main {
             }
             System.out.println("Please select the date:");
             airport.createFlights();
+            String depDateInput = input.next();
+
+            System.out.println("Please select the class:");
+            airport.createCabin();
+            String classInput = input.next();
 
 
         }

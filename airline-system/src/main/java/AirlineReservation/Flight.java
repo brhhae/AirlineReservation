@@ -9,6 +9,16 @@ public class Flight {
     private String depTime;
     private String arrTime;
 
+    public Flight(String number, String departure, String arrival, String depDate, String arrDate, String depTime, String arrTime) {
+        this.number = number;
+        this.departure = departure;
+        this.arrival = arrival;
+        this.depDate = depDate;
+        this.arrDate = arrDate;
+        this.depTime = depTime;
+        this.arrTime = arrTime;
+    }
+
     public String getDepDate() {
         return depDate;
     }
@@ -38,16 +48,6 @@ public class Flight {
     }
 
     public void setArrTime(String arrTime) {
-        this.arrTime = arrTime;
-    }
-
-    public Flight(String number, String departure, String arrival, String depDate, String arrDate, String depTime, String arrTime) {
-        this.number = number;
-        this.departure = departure;
-        this.arrival = arrival;
-        this.depDate = depDate;
-        this.arrDate = arrDate;
-        this.depTime = depTime;
         this.arrTime = arrTime;
     }
 

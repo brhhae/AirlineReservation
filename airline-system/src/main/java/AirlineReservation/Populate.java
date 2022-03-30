@@ -1,6 +1,10 @@
 package AirlineReservation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Populate {
 
@@ -55,10 +59,24 @@ public class Populate {
                         new Flight("1409", "PVG", "JFK", "23-11-2022",
                                 "24-11-2022", "09:00", "10:00"),
                 };
+        //List<Flight> flightsToList = new ArrayList<>(Arrays.asList(arrayOfFlights));
 
 
-        for(Flight flight : arrayOfFlights){
-            System.out.println(flight);
-        }
+        List<String> result = Arrays.stream(arrayOfFlights).map(Flight::getDepDate).toList();
+        result.forEach(System.out::println);
+
+
+        //for(Flight flight : arrayOfFlights){
+        //    System.out.println(flight);
+       // }
     }
+
+    public void createCabin(){
+        Cabin[] arrayOfCabins =
+                {new Cabin("Economy", "Business")};
+        List<Cabin> cabins = Arrays.stream(arrayOfCabins).toList();
+        cabins.forEach(System.out::println);
+
+}
+
 }
