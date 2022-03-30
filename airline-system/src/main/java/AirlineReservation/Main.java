@@ -11,9 +11,9 @@ public class Main {
         System.out.println("Hello!");
         System.out.println("Where do you want to explore?");
         System.out.println();
-        System.out.println("1.Book a flight");
-        System.out.println("2.Search Ticket");
-        System.out.println("3.View Ticket");
+        System.out.println("1.Book a flight.");
+        System.out.println("2.Search Ticket.");
+        System.out.println("13.View Ticket.");
         System.out.println();
        // System.out.println("4.Sign up");
 
@@ -31,8 +31,7 @@ public class Main {
             airport.createAirports();
             String to = input.next();
             while(from.equals(to)){
-                System.out.println("Are you Crazy!" +
-                        "what the hell is wrong with you????");
+                //System.out.println("Are you Crazy!" +"what the hell is wrong with you????");
                 System.out.println("Please select again");
                 to = input.next();
             }
