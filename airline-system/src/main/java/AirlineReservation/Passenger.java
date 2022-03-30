@@ -1,15 +1,18 @@
 package AirlineReservation;
 
 public class Passenger {
+    private String id;
     private String name;
     private String surname;
     private String address;
     private String phone;
     private int luggage;
-    private char cabin;
+    private String cabin;
     private String email;
+    private String billingAddress;
 
-    public Passenger(String name, String surname, String address, String phone, int luggage, char cabin , String email) {
+    public Passenger(String id,String name, String surname, String address, String phone, int luggage, String cabin , String email, String billingAddress) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.address = address;
@@ -17,12 +20,34 @@ public class Passenger {
         this.luggage = luggage;
         this.cabin = cabin;
         this.email=email;
+        this.billingAddress= billingAddress;
     }
 
-    public void createPassenger(){
+    public Passenger() {
 
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCabin(){ return cabin;}
+
+    public void setCabin(String cabin) {
+        this.cabin = cabin;
+    }
+
+    public String getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(String billingAddress) {
+        this.billingAddress = billingAddress;
+    }
 
     public String getName() {
         return name;
@@ -72,12 +97,5 @@ public class Passenger {
         this.luggage = luggage;
     }
 
-    public char getCabin() {
-        return cabin;
-    }
-
-    public void setCabin(char cabin) {
-        this.cabin = cabin;
-    }
 
 }

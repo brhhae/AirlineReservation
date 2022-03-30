@@ -1,67 +1,48 @@
 package AirlineReservation;
 
 public class BookFlight {
-        private String name;
-        private int price;
-        private String created;
-        private String payment;
-        private int paymentMade;
-        private char billingAddress;
+        private String flightNo;
+        private double price;
+        private int cabinID;
+        private Passenger passenger;
 
-    public BookFlight(String name, int price, String created, String payment, int paymentMade, char billingAddress) {
-        this.name = name;
+    public BookFlight(String flightNo, double price,int cabinID, Passenger passenger) {
+        this.flightNo = flightNo;
         this.price = price;
-        this.created = created;
-        this.payment = payment;
-        this.paymentMade = paymentMade;
-        this.billingAddress = billingAddress;
+        this.cabinID= cabinID;
+        this.passenger=passenger;
     }
 
-    public String getName() {
-        return name;
+    public int getCabinID() {
+        return cabinID;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCabinID(int cabinID) {
+        this.cabinID = cabinID;
     }
 
-    public int getPrice() {
+    public Passenger getPassenger() {
+        return passenger;
+    }
+
+    public void setPassenger(Passenger passenger) {
+        this.passenger = passenger;
+    }
+
+    public String getFlightNo() {
+        return flightNo;
+    }
+
+    public void setFlightNo(String flightNo) {
+        this.flightNo = flightNo;
+    }
+
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public String getPayment() {
-        return payment;
-    }
-
-    public void setPayment(String payment) {
-        this.payment = payment;
-    }
-
-    public int getPaymentMade() {
-        return paymentMade;
-    }
-
-    public void setPaymentMade(int paymentMade) {
-        this.paymentMade = paymentMade;
-    }
-
-    public char getBillingAddress() {
-        return billingAddress;
-    }
-
-    public void setBillingAddress(char billingAddress) {
-        this.billingAddress = billingAddress;
-    }
 }

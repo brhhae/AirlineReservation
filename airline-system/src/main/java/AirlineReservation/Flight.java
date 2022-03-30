@@ -8,8 +8,9 @@ public class Flight {
     private String arrDate;
     private String depTime;
     private String arrTime;
+    private double basePrice;
 
-    public Flight(String number, String departure, String arrival, String depDate, String arrDate, String depTime, String arrTime) {
+    public Flight(String number, String departure, String arrival, String depDate, String arrDate, String depTime, String arrTime, double basePrice) {
         this.number = number;
         this.departure = departure;
         this.arrival = arrival;
@@ -17,6 +18,7 @@ public class Flight {
         this.arrDate = arrDate;
         this.depTime = depTime;
         this.arrTime = arrTime;
+        this.basePrice = basePrice;
     }
 
     public String getDepDate() {
@@ -73,6 +75,14 @@ public class Flight {
 
     public void setArrival(String arrival) {
         this.arrival = arrival;
+    }
+
+    public double getBasePrice() {
+        return basePrice;
+    }
+
+    public void setBasePrice(double basePrice) {
+        this.basePrice = basePrice;
     }
 
     @Override
