@@ -9,8 +9,9 @@ public class Flight {
     private String depTime;
     private String arrTime;
     private double basePrice;
+    private int capacity;
 
-    public Flight(String number, String departure, String arrival, String depDate, String arrDate, String depTime, String arrTime, double basePrice) {
+    public Flight(String number, String departure, String arrival, String depDate, String arrDate, String depTime, String arrTime, double basePrice, int capacity) {
         this.number = number;
         this.departure = departure;
         this.arrival = arrival;
@@ -19,6 +20,31 @@ public class Flight {
         this.depTime = depTime;
         this.arrTime = arrTime;
         this.basePrice = basePrice;
+        this.capacity = capacity;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getDeparture() {
+        return departure;
+    }
+
+    public void setDeparture(String departure) {
+        this.departure = departure;
+    }
+
+    public String getArrival() {
+        return arrival;
+    }
+
+    public void setArrival(String arrival) {
+        this.arrival = arrival;
     }
 
     public String getDepDate() {
@@ -53,36 +79,20 @@ public class Flight {
         this.arrTime = arrTime;
     }
 
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public String getDeparture() {
-        return departure;
-    }
-
-    public void setDeparture(String departure) {
-        this.departure = departure;
-    }
-
-    public String getArrival() {
-        return arrival;
-    }
-
-    public void setArrival(String arrival) {
-        this.arrival = arrival;
-    }
-
     public double getBasePrice() {
         return basePrice;
     }
 
     public void setBasePrice(double basePrice) {
         this.basePrice = basePrice;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 
     @Override
@@ -95,6 +105,8 @@ public class Flight {
                 ", arrDate='" + arrDate + '\'' +
                 ", depTime='" + depTime + '\'' +
                 ", arrTime='" + arrTime + '\'' +
+                ", basePrice=" + basePrice +
+                ", capacity=" + capacity +
                 '}';
     }
 }

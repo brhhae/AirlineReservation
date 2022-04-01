@@ -97,5 +97,18 @@ public class Passenger {
         this.luggage = luggage;
     }
 
-
+    @Override
+    public String toString() {
+        return "Passenger{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", luggage=" + luggage +
+                ", cabin='" + cabin + '\'' +
+                ", email='" + email + '\'' +
+                ", billingAddress='" + billingAddress + '\'' +
+                '}';
+    }
 }

@@ -1,19 +1,26 @@
 package AirlineReservation;
-
-import jdk.swing.interop.SwingInterOpUtils;
-
 import java.util.*;
 
 public class Main {
     static Populate airport=new Populate();
     static Scanner input=new Scanner(System.in);
     static Passenger passenger;
-    static BookFlight bookFlight;
+    static BookFlight bookFlight = new BookFlight();
+    static Calculate calculate = new Calculate();
+
     //static Cabin cabin = new Cabin();
     static String classInput;
     public static void main(String[] args) {
       startPage();
     }
+    static double luggagePrice = 0.00;
+    static double classPrice = 0.00;
+    static double totalPrice;
+    static double basePrice;
+    static int capacity;
+    static List<Flight> result;
+    static String from;
+    static String to;
 
     public static void startPage(){
         System.out.println("Hello!");
@@ -29,18 +36,22 @@ public class Main {
 
         if (choice == 1){
             bookFlight();
+        }else if(choice == 2){
+            searchTicket();
 
-
+        }else if(choice == 3){
+            viewTicket();
+        }else{
         }
     }
     public static void bookFlight(){
         System.out.println("Book Flight Details");
         System.out.println("From:");
         airport.displayFrom();
-        String from = input.next();
+        from = input.next();
         System.out.println("To: ");
         airport.displayTo();
-        String to = input.next();
+        to = input.next();
         while(from.equals(to)){
             //System.out.println("Are you Crazy!" +"what the hell is wrong with you????");
             System.out.println("Please select again");
@@ -53,39 +64,62 @@ public class Main {
         System.out.println("Please select the class:");
         airport.createCabin();
         classInput = input.next();
-        List<Flight> result = airport.checkFlight(from, to, depDateInput);
+        result = airport.checkFlight(from, to, depDateInput);
         if (result.size() != 0){
             System.out.println("Available flights for " + from + " " + to + " " + depDateInput + ":" + result);
         }
-        else{
+        else {
             System.out.println("There are no flights available!");
             bookFlight();
+            return;
         }
 
 
         if(confirmFlight().equals("Y")){
-            bookFlight.setFlightNo(result.get(0).getNumber());
 
         }else if(confirmFlight().equals("N")){
             bookFlight();
+            return;
         }else{
             System.out.println("Undefined input. Please enter Y or N to confirm!");
             confirmFlight();
 
         }
 
-        passengerDetails();
-
-        if(confirmFlight().equals("Y")){
-
-        }else if(confirmFlight().equals("N")){
-            passengerDetails();
+        if(result.get(0).getCapacity() > 0) {
+            bookFlight.setFlightNo(result.get(0).getNumber());
+        }else{
+            System.out.println("No seats available for this flight!");
+            bookFlight();
+            return;
         }
-        else{
+
+        finalizeBooking();
+
+
+    }
+
+    public static void searchTicket(){
+        airport.checkScheduledFlights(from, to);
+        System.out.println("Would you like to select this flight?");
+        String answer = input.next();
+        if(answer.equals("Y")){
+
+        }else if(answer.equals("N")){
+            searchTicket();
+        }else{
             System.out.println("Undefined input. Please enter Y or N to confirm!");
-            confirmFlight();
+            confirmChoice();
         }
 
+        bookFlight.setFlightNo(result.get(0).getNumber());
+        finalizeBooking();
+
+    }
+
+    public static void viewTicket(){
+        printFlightDetails();
+        startPage();
 
     }
 
@@ -108,15 +142,68 @@ public class Main {
         String billingAddress = input.next();
         System.out.println("How many luggages will you carry? Extra luggage fee of $20 will apply for more than 1 luggage.");
         int luggage = input.nextInt();
+        if (luggage > 1){
+            luggagePrice = calculate.calculateLuggage(luggage);
+            System.out.println("Extra luggage fee is: " + luggagePrice);
+        }
         System.out.println("Class: " + classInput );
+        checkClassFee();
         passenger = new Passenger(id,name, surname, address, phone, luggage, classInput, email, billingAddress);
+        checkTotalFee();
+
     }
     public static String confirmFlight(){
         System.out.println("Confirm flight information? Y/N");
+        return getUserInput();
+    }
+    public static String confirmChoice(){
         return getUserInput();
     }
 
     private static String getUserInput(){
         return input.next();
     }
+
+    private static void checkClassFee(){
+        if(!classInput.equals("Economy") && !classInput.equals("Business")){
+            System.out.println("Class does not exist. You will be assigned to Economy!");
+            classInput = "Economy";
+        }if (classInput.equals("Business")){
+            classPrice = calculate.calculateClassFee(classInput);
+            System.out.println("The class fee is: " + classPrice);
+        }
+    }
+
+    private static void checkTotalFee(){
+        basePrice = result.get(0).getBasePrice();
+        totalPrice = calculate.calculateTotalFee(luggagePrice,classPrice,basePrice);
+        System.out.println("Total flight fee: " + totalPrice);
+    }
+
+    private static void printFlightDetails(){
+        System.out.println("Your flight details: ");
+        System.out.println(bookFlight.toString());
+    }
+
+    private static void finalizeBooking(){
+        passengerDetails();
+
+        if(confirmFlight().equals("Y")){
+            bookFlight.setCabin(classInput);
+            bookFlight.setPrice(totalPrice);
+            bookFlight.setPassenger(passenger);
+            capacity = result.get(0).getCapacity();
+            result.get(0).setCapacity(capacity--);
+            printFlightDetails();
+            startPage();
+
+        }else if(confirmFlight().equals("N")){
+            passengerDetails();
+        }
+        else{
+            System.out.println("Undefined input. Please enter Y or N to confirm!");
+            confirmFlight();
+        }
+    }
+
 }
