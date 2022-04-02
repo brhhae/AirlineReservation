@@ -3,9 +3,12 @@ package AirlineReservation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class Populate {
+
+    // array of flights that are scheduled
+
     Flight[] arrayOfFlights =
             {new Flight("1400", "TIA", "IST", "01-03-2022",
                     "02-03-2022", "12:00", "2:00",400.00,108),
@@ -29,6 +32,13 @@ public class Populate {
                             "24-11-2022", "09:00", "10:00",5000.70,108),
             };
 
+    // array of cabins that exist
+    Cabin[] arrayOfCabins =
+            {new Cabin("Economy"),
+                    new Cabin("Business")};
+
+    // array of airports that exist
+
     public void createAirports() {
         ArrayList<String> airports = new ArrayList();
 
@@ -42,50 +52,46 @@ public class Populate {
                 new Airport("PVG", "Shanghai","China"),
                 new Airport("CBR", "Canberra","Australia"),
                 new Airport("MLE", "Male","Maldives")
-
-
-
         };
 
         for(Airport airport : arrayOfAirports){
             System.out.println(airport);
         }
-
     }
+
+    // this method displays the list of departure airports for the user to pick and prints out the results vertically
     public void displayFrom(){
         List<String> resultFrom = Arrays.stream(arrayOfFlights).map(Flight::getDeparture).toList();
         resultFrom.forEach(System.out::println);
     }
+
+    // this method displays the list of arrival airports for the user to pick and prints out the results vertically
     public void displayTo(){
         List<String> resultTo = Arrays.stream(arrayOfFlights).map(Flight::getArrival).toList();
         resultTo.forEach(System.out::println);
     }
 
+    // this method displays the list of dates for the user to pick and prints out the results vertically
     public void displayDate() {
-
         List<String> result = Arrays.stream(arrayOfFlights).map(Flight::getDepDate).toList();
         result.forEach(System.out::println);
-
     }
 
+    // displays the list of cabins to the user to pick and prints out the results vertically
     public void createCabin(){
-
-        Cabin[] arrayOfCabins =
-                {new Cabin("Economy"),
-                new Cabin("Business")};
         List<String> cabins = Arrays.stream(arrayOfCabins).map(Cabin::getCabinClass).toList();
         cabins.forEach(System.out::println);
-//        for (Cabin cabin : cabins) {
-//            System.out.println(cabin);
-//        }
-
     }
 
+    // filters the list of scheduled flights by using inputs from the user
+    // checks if flights exist for departure and arrival airports as well as the departure date
     public List checkFlight(String from, String to, String depDate){
         List<Flight> result = Arrays.stream(arrayOfFlights).filter(c -> c.getDeparture().equals(from) && c.getArrival().equals(to) && c.getDepDate().equals(depDate)).toList();
-
         return result;
     }
+
+    // filters the list of scheduled flights for searching ticket module
+    // checks if flights exist for departure and arrival airports as well as enough capacity
     public List checkScheduledFlights(String from, String to){
         List<Flight> availableFlights = Arrays.stream(arrayOfFlights).filter(c -> c.getDeparture().equals(from) && c.getArrival().equals(to) && c.getCapacity() > 0).toList();
         return availableFlights;
