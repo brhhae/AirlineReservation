@@ -10,9 +10,6 @@ public class Main {
 
     //static Cabin cabin = new Cabin();
     static String classInput;
-    public static void main(String[] args) {
-      startPage();
-    }
     static double luggagePrice = 0.00;
     static double classPrice = 0.00;
     static double totalPrice;
@@ -22,6 +19,10 @@ public class Main {
     static String from;
     static String to;
 
+    public static void main(String[] args) {
+      startPage();
+    }
+
     public static void startPage(){
         System.out.println("Hello!");
         System.out.println("Where do you want to explore?");
@@ -30,33 +31,31 @@ public class Main {
         System.out.println("2.Search Ticket");
         System.out.println("3.View Ticket");
         System.out.println();
-        // System.out.println("4.Sign up");
+        System.out.println("Press 0 to exit.");
+        System.out.println();
 
-        int choice= input.nextInt();
+        int choice = getChoice();
+        switch (choice) {
+            case 1 -> bookFlight();
+            case 2 -> searchTicket();
+            case 3 -> viewTicket();
+            default -> System.exit(0);
+        }
+    }
 
-        if (choice == 1){
-            bookFlight();
-        }else if(choice == 2){
-            searchTicket();
-
-        }else if(choice == 3){
-            viewTicket();
-        }else{
+    public static int getChoice(){
+        while(true){
+            try {
+                return input.nextInt();
+            }catch(InputMismatchException e){
+                input.next();
+                System.out.println("Invalid input! Please select 1 to book a flight, 2 to search for tickets, 3 to view ticket or 0 to exit!");
+            }
         }
     }
     public static void bookFlight(){
         System.out.println("Book Flight Details");
-        System.out.println("From:");
-        airport.displayFrom();
-        from = input.next();
-        System.out.println("To: ");
-        airport.displayTo();
-        to = input.next();
-        while(from.equals(to)){
-            //System.out.println("Are you Crazy!" +"what the hell is wrong with you????");
-            System.out.println("Please select again");
-            to = input.next();
-        }
+        selectDestination();
         System.out.println("Please select the date:");
         airport.displayDate();
         String depDateInput = input.next();
@@ -100,7 +99,17 @@ public class Main {
     }
 
     public static void searchTicket(){
-        airport.checkScheduledFlights(from, to);
+        selectDestination();
+        result = airport.checkScheduledFlights(from, to);
+        if (result.size() != 0){
+            System.out.println("Available flights for " + from + " " + to + " " + ":" + result);
+        }
+        else {
+            System.out.println("There are no flights available!");
+            searchTicket();
+            return;
+        }
+
         System.out.println("Would you like to select this flight?");
         String answer = input.next();
         if(answer.equals("Y")){
@@ -112,6 +121,9 @@ public class Main {
             confirmChoice();
         }
 
+        System.out.println("Please select the class:");
+        airport.createCabin();
+        classInput = input.next();
         bookFlight.setFlightNo(result.get(0).getNumber());
         finalizeBooking();
 
@@ -185,6 +197,18 @@ public class Main {
         System.out.println(bookFlight.toString());
     }
 
+    private static void selectDestination(){
+        System.out.println("From:");
+        airport.displayFrom();
+        from = input.next();
+        System.out.println("To: ");
+        airport.displayTo();
+        to = input.next();
+        while(from.equals(to)){
+            System.out.println("Please select again");
+            to = input.next();
+        }
+    }
     private static void finalizeBooking(){
         passengerDetails();
 

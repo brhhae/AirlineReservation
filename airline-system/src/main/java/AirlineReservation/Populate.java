@@ -3,6 +3,7 @@ package AirlineReservation;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Populate {
     Flight[] arrayOfFlights =
@@ -50,11 +51,6 @@ public class Populate {
             System.out.println(airport);
         }
 
-
-//
-//        for (int i = 0; i < airports.size(); i++) {
-//            System.out.println(airports.get(i));
-//        }
     }
     public void displayFrom(){
         List<String> resultFrom = Arrays.stream(arrayOfFlights).map(Flight::getDeparture).toList();
@@ -67,27 +63,21 @@ public class Populate {
 
     public void displayDate() {
 
-        //List<Flight> flightsToList = new ArrayList<>(Arrays.asList(arrayOfFlights));
-
-
         List<String> result = Arrays.stream(arrayOfFlights).map(Flight::getDepDate).toList();
         result.forEach(System.out::println);
 
-
-        //for(Flight flight : arrayOfFlights){
-        //    System.out.println(flight);
-       // }
     }
 
     public void createCabin(){
+
         Cabin[] arrayOfCabins =
                 {new Cabin("Economy"),
                 new Cabin("Business")};
-        List<Cabin> cabins = Arrays.stream(arrayOfCabins).toList();
-        for (Cabin cabin : cabins) {
-            System.out.println(cabin);
-        }
-
+        List<String> cabins = Arrays.stream(arrayOfCabins).map(Cabin::getCabinClass).toList();
+        cabins.forEach(System.out::println);
+//        for (Cabin cabin : cabins) {
+//            System.out.println(cabin);
+//        }
 
     }
 
@@ -97,8 +87,8 @@ public class Populate {
         return result;
     }
     public List checkScheduledFlights(String from, String to){
-
-        return Arrays.stream(arrayOfFlights).filter(c -> c.getDeparture().equals(from) && c.getArrival().equals(to) && c.getCapacity() > 0).toList();
+        List<Flight> availableFlights = Arrays.stream(arrayOfFlights).filter(c -> c.getDeparture().equals(from) && c.getArrival().equals(to) && c.getCapacity() > 0).toList();
+        return availableFlights;
     }
 
 
